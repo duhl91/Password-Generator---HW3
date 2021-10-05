@@ -1,65 +1,67 @@
-// Assignment Code
+// Declare variables
 
-var lcPrompt;
-var ucPrompt;
-var numPrompt;
-var symPrompt;
+var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var lowercase = "abcdefghijklmnopqrstuvwxyz";
+var numbers = "0123456789";
+var symbols = "!#$%&()*+,-./:;<=>?@^[]^_`{|}~";
 
-var generateBtn = document.querySelector("#generate");
-generateBtn.addEventListener("click", writePassword); {
- };
+var uppercaseArr = uppercase.split("");
+var lowercaseArr = lowercase.split("");
+var numbersArr = numbers.split("");
+var symbolsArr = symbols.split("");
 
-// Write password to the #password input
-function writePassword() {
+// Prompt to tell the user how to start the application 
+window.onload = alert(
+  "Welcome, please click 'Generate password' to run the application!"
+);
 
-  var userData = prompt("Please enter the desired password length. Must be between 8 - 128 characters.");
+// Main function that will generate the password from user input
+function generatePassword() {
+  var allChars = [];
+  var userPw = "";
 
-  if (userData < 8 || userData > 128) {
+  var userInput = prompt(
+    "How many characters would you like your password to be?"
+  );
+
+  if (userInput < 8 || userInput > 128) {
     alert("Invalid entry. Please enter a number between 8 - 128.");
-    return writePassword();
   }
 
-    else {
-      lcPrompt = confirm("Should the password contain uppercase letters?");
-      ucPrompt = confirm("Should the password contain lowercase letters?");
-      numPrompt = confirm("Should the password contain numbers?");
-      symPrompt = confirm("Should the password contain symbols?");
+  // Confirms the types of characters that the user would like to use in the password 
+  else {
+    if (confirm("Should the password contain uppercase letters?")) {
+      Array.prototype.push.apply(allChars, uppercaseArr);
     }
+
+    if (confirm("Should the password contain lowercase letters?")) {
+      Array.prototype.push.apply(allChars, lowercaseArr);
+    }
+
+    if (confirm("Should the password contain numbers?")) {
+      Array.prototype.push.apply(allChars, numbersArr);
+    }
+
+    if (confirm("Should the password contain symbols?")) {
+      Array.prototype.push.apply(allChars, symbolsArr);
+    }
+
+    if (allChars.length === 0) {
+      alert(
+        "Please select at least one character type to generate a password!"
+      );
+    }
+
+    // Loop through the input data from the user and generate a password from it
+    else {
+      for (var i = 0; i < userInput; i++) {
+        var random = Math.floor(Math.random() * allChars.length);
+        userPw += allChars[random];
+      }
+    }
+  }
+
+  // Output the result to the page
+
+  document.getElementById("password").innerHTML = userPw;
 }
-
-  function generatePassword() {
-
-    var lowercase = "abcdefghijklmnopqrstuvwxyz";
-    var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    var numbers = "1234567890";
-    var symbols = "`~!@#$%^&*()-_=+;:<>,./?[]{}";
-    var userPw = "";
-
-  if (lowercase) {
-    userPw = userPw + lowercase;
-  }
-  if (uppercase) {
-    userPw = userPw + uppercase;
-  }
-  if (numbers) {
-    userPw = userPw + numbers;
-  }
-  if (symbols) {
-    userPw = userPw + symbols;
-  }
-
-  for (var i = 0; i < userData; i++) {
-
-    var rNum = math.floor(math.random() * userPw.length);
-    password += userPw.substring(rNum, rNum + 1);
-  }
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
-  passwordText.value = password;
-  document.getElementById("password").innerHTML = password; 
-
-}
- 
-
-
-
